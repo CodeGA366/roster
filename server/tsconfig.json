@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist",
+    "rootDir": "./src" // Adjusted to point to the correct directory
+  },
+  "include": ["src/**/*", "src/testconnection.ts", "src/express.d.ts"], // Adjusted to point to the correct directory
+  "exclude": ["node_modules", "**/*.spec.ts"]
+}
