@@ -23,7 +23,6 @@ const initDatabase = async () => {
         WHERE pg_stat_activity.datname = '${process.env.DB_NAME}'
           AND pid <> pg_backend_pid();
       `);
-  
 
     // Drop and create the database
     await client.query(`DROP DATABASE IF EXISTS ${process.env.DB_NAME}`);
