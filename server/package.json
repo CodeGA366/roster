@@ -2,7 +2,7 @@
   "scripts": {
     "build": "tsc && npm run initialize-database && npm run populate-database &&  cd ../roster-radar-frontend && npm install && npm run build && cd ../server",
     "start": "node dist/server.js",
-    "initialize-database": "ts-node initDataBase.ts",
+    "initialize-database": "ts-node src/initDataBase.ts",
     "populate-database": "ts-node src/populateDatabase.ts"
   },
   "dependencies": {
