@@ -14,7 +14,7 @@ const AuthForm: React.FC = () => {
     setError('');
 
     try {
-      const url = isLogin ? 'http://localhost:3000/api/login' : 'http://localhost:3000/api/register';
+      const url = isLogin ? 'http://localhost:1000/api/login' : 'http://localhost:1000/api/register';
       const response = await axios.post(url, { username, password, email: isLogin ? undefined : email }); // Send email only if registering
 
       if (isLogin) {

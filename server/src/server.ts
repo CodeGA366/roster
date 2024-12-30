@@ -9,7 +9,7 @@ import { pool } from './db'; // Import the pool object
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 3000; // Use an environment variable for the port
+const port = process.env.PORT || 1000; // Use an environment variable for the port
 
 // Middleware
 app.use(cors());
