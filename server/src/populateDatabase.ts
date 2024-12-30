@@ -16,7 +16,6 @@ const fetchAndInsertPlayersFrom2023 = async () => {
       }
     });
 
-    console.log('Response:', response.data);
 
     const players: PlayerData[] = response.data || [];
     console.log(`Number of players fetched: ${players.length}`);
