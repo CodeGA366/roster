@@ -55,7 +55,7 @@ const fetchAndInsertPlayersFrom2023 = async () => {
           [id, playerName, position, per, winShares, box, team]
         );
 
-        console.log('Inserted player:', playerName);
+
       } catch (insertError) {
         console.error('Error inserting player:', insertError);
       }
