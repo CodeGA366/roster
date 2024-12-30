@@ -27,7 +27,7 @@ const DoublePanel: React.FC<DoublePanelProps> = ({ onMyRosterClick, onPlayersCli
   // Fetch players from players table
   const fetchPlayers = async () => {
     try {
-      const response = await fetch('http://localhost:1000/api/players'); // Adjust this URL to match your backend
+      const response = await fetch('https://roster-x1pq.onrender.com/api/players'); // Adjust this URL to match your backend
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -43,7 +43,7 @@ const DoublePanel: React.FC<DoublePanelProps> = ({ onMyRosterClick, onPlayersCli
   // Fetch top players endpoint
   const fetchTopPlayers = async (metric: string) => {
     try {
-      const response = await fetch('http://localhost:1000/api/top-players'); // Adjust this URL to match your backend
+      const response = await fetch('https://roster-x1pq.onrender.com/api/top-players'); // Adjust this URL to match your backend
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -59,7 +59,7 @@ const DoublePanel: React.FC<DoublePanelProps> = ({ onMyRosterClick, onPlayersCli
   // Fetch top winShares endpoint
   const fetchTopWinShares = async () => {
     try {
-      const response = await fetch('http://localhost:1000/api/top-winShares'); // Adjust this URL to match your backend
+      const response = await fetch('https://roster-x1pq.onrender.com/api/top-winShares'); // Adjust this URL to match your backend
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -79,7 +79,7 @@ const DoublePanel: React.FC<DoublePanelProps> = ({ onMyRosterClick, onPlayersCli
   // Fetch top boxScore endpoint
   const fetchTopBoxScore = async () => {
     try {
-      const response = await fetch('http://localhost:1000/api/top-boxScore'); // Adjust this URL to match your backend
+      const response = await fetch('https://roster-x1pq.onrender.com/api/top-boxScore'); // Adjust this URL to match your backend
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -95,7 +95,7 @@ const DoublePanel: React.FC<DoublePanelProps> = ({ onMyRosterClick, onPlayersCli
   // Fetch user players
   async function fetchUserPlayers(userId: number): Promise<Player[]> {
     try {
-      const response = await fetch(`http://localhost:1000/api/user_players/${userId}`);
+      const response = await fetch(`https://roster-x1pq.onrender.com/api/user_players/${userId}`);
       if (!response.ok) {
         const errorText = await response.text();
         console.error('Error fetching players:', errorText);
@@ -226,7 +226,7 @@ const DoublePanel: React.FC<DoublePanelProps> = ({ onMyRosterClick, onPlayersCli
     }
 
     try {
-      const response = await fetch('http://localhost:1000/api/user_players', {
+      const response = await fetch('https://roster-x1pq.onrender.com/api/user_players', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
