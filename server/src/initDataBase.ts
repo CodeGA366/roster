@@ -28,22 +28,36 @@ const initDatabase = async () => {
     await client.connect();
     console.log('Connected to PostgreSQL');
 
+    // Terminate connections to the database, except for the current one
     await client.query(`
-        SELECT pg_terminate_backend(pg_stat_activity.pid)
-        FROM pg_stat_activity
-        WHERE pg_stat_activity.datname = '${process.env.DB_NAME}'
-          AND pid <> pg_backend_pid();
-      `);
+      SELECT pg_terminate_backend(pg_stat_activity.pid)
+      FROM pg_stat_activity
+      WHERE pg_stat_activity.datname = '${process.env.DB_NAME}'
+        AND pid <> pg_backend_pid();
+    `);
 
     // Drop and create the database
-    await client.query(`DROP DATABASE IF EXISTS ${process.env.DB_NAME}`);
-    await client.query(`CREATE DATABASE ${process.env.DB_NAME}`);
+    await client.end();  // Disconnect from the current database
+
+    // Reconnect to the default database (usually 'postgres') to drop the target database
+    const defaultClient = new Client({
+      user: process.env.DB_USER,
+      host: process.env.DB_HOST,
+      password: process.env.DB_PASSWORD,
+      port: parseInt(process.env.DB_PORT || '5432', 10),
+      database: 'postgres',  // Connect to the default 'postgres' database to perform drop operation
+    });
+
+    await defaultClient.connect();
+
+    await defaultClient.query(`DROP DATABASE IF EXISTS ${process.env.DB_NAME}`);
+    await defaultClient.query(`CREATE DATABASE ${process.env.DB_NAME}`);
     console.log(`Database ${process.env.DB_NAME} created`);
 
-    // Disconnect from the initial connection
-    await client.end();
+    // Disconnect from the default database
+    await defaultClient.end();
 
-    // Create a new client for the new database
+    // Now reconnect to the newly created database and run schema creation
     const newClient = new Client({
       user: process.env.DB_USER,
       host: process.env.DB_HOST,
