@@ -6,17 +6,23 @@ import dotenv from 'dotenv';
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 const initDatabase = async () => {
-  console.log('Environment variables:', process.env);
-  console.log('DB_HOST:', process.env.DB_HOST);
-  console.log('DB_USER:', process.env.DB_USER);
-  console.log('DB_PASSWORD:', process.env.DB_PASSWORD);
-  console.log('DB_PORT:', process.env.DB_PORT);
-  const client = new Client({
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    password: process.env.DB_PASSWORD,
-    port: parseInt(process.env.DB_PORT || '5432', 10),
-  });
+  let client;
+  
+  if (process.env.DATABASE_URL) {
+    // Use the DATABASE_URL for cloud environment (Render)
+    client = new Client({
+      connectionString: process.env.DATABASE_URL,
+    });
+  } else {
+    // Use individual DB settings for local environment
+    client = new Client({
+      user: process.env.DB_USER,
+      host: process.env.DB_HOST,
+      password: process.env.DB_PASSWORD,
+      port: parseInt(process.env.DB_PORT || '5432', 10),
+      database: process.env.DB_NAME,
+    });
+  }
 
   try {
     await client.connect();
